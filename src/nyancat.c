@@ -919,7 +919,7 @@ int main(int argc, char ** argv) {
 			 * The \033[0m prevents the Apple ][ from flipping everything, but
 			 * makes the whole nyancat less bright on the vt220
 			 */
-			printf("\033[1;37mYou have nyaned for %0.0f seconds!\033[J\033[0m", diff);
+			printf("\033[1;37mYou have nyaned for %d seconds!\033[J\033[0m", (int)diff);
 		}
 		/* Reset the last color so that the escape sequences rewrite */
 		last = 0;
