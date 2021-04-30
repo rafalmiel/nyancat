@@ -544,7 +544,7 @@ int main(int argc, char ** argv) {
 							sb_len  = 0;
 							memset(sb, 0, sizeof(sb));
 							break;
-						case IAC: 
+						case IAC:
 							/* IAC IAC? That's probably not right. */
 							done = 2;
 							break;
@@ -846,6 +846,10 @@ int main(int argc, char ** argv) {
 	char last = 0;      /* Last color index rendered */
 	int y, x;        /* x/y coordinates of what we're drawing */
 	while (playing) {
+		sigset_t sigset;
+		sigemptyset(&sigset);
+		sigaddset(&sigset, SIGINT);
+		sigprocmask(SIG_BLOCK, &sigset, NULL);
 		/* Reset cursor */
 		if (clear_screen) {
 			printf("\033[H");
@@ -933,6 +937,7 @@ int main(int argc, char ** argv) {
 			/* Loop animation */
 			i = 0;
 		}
+		sigprocmask(SIG_UNBLOCK, &sigset, NULL);
 		/* Wait */
 		usleep(1000 * delay_ms);
 	}
